@@ -40,7 +40,6 @@ void HienThiDanhSachSV(struct SinhVien ArrSinhVien[], int slgSV) {
         ArrSinhVien[i].ngaySinh.date,
 		 ArrSinhVien[i].ngaySinh.month,
 		  ArrSinhVien[i].ngaySinh.year,
-		  
                ArrSinhVien[i].gioiTinh,
 			    ArrSinhVien[i].sdt,
 				 ArrSinhVien[i].lop);
@@ -266,7 +265,26 @@ void SapXepTheoDiemTB(struct SinhVien ArrSinhVien[], int soluongSV) {
     }
 
     printf("Danh sach sinh vien sau khi sap xep theo diem trung binh:\n");
-  
+    }
+void ghifile(struct SinhVien ArrSinhVien[], int soluongSV) {
+    FILE *f0ut = fopen("SV.txt", "w");  // S? d?ng "w" thay vì "a" d? ghi dè d? li?u cu và t?o m?i n?u chua t?n t?i
+
+    // Ki?m tra n?u m? t?p tin thành công
+   
+        // Ghi tiêu d? cho file
+        fprintf(f0ut, "%-20s %-20s %-15s %-20s %-15s %-10s \n", 
+		"Ma SV","ten","sinh ngay", "Gioi Tinh", 
+		"phone","lop");
+
+        // Ghi d? li?u t? m?ng sinh viên vào t?p tin
+        for (int i = 0; i < soluongSV; i++) {
+            fprintf(f0ut, "%-20d %-20s %d\\%d\\%d       %-20s %-15s %-10s\n",  ArrSinhVien[i].maSV, ArrSinhVien[i].hoTen,
+                   ArrSinhVien[i].ngaySinh.date, ArrSinhVien[i].ngaySinh.month, ArrSinhVien[i].ngaySinh.year,
+                   ArrSinhVien[i].gioiTinh, ArrSinhVien[i].sdt, ArrSinhVien[i].lop);
+        }
+
+        // Ðóng t?p tin sau khi ghi
+        fclose(f0ut);
   
 }
 int main() {
@@ -301,7 +319,8 @@ int main() {
                     printf("4. Xoa sinh vien\n");
                     printf("5. sap xep  sinh vien theo ten \n");
                     printf("6. Tim kiem sinh vien theo lop sinh vien\n");
-                    printf("7. tim kiem sinh vien theo ma ");
+                    printf("7. tim kiem sinh vien theo ma\n");
+                    printf("8. ghi file\n");
                     printf("0. Thoat\n");
                     printf("Moi nhap vao lua chon cua ban: ");
                     scanf("%d", &chonQuanLySinhVien);
@@ -313,17 +332,20 @@ int main() {
 	"----------------------------------------------------------------\n");
 						break;
                         case 2:
-                            NhapSinhVien(ArrSinhVien, &slgSV);
+                            NhapSinhVien(ArrSinhVien, &slgSV);printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                         break;
                         case 3:
                             printf("Nhap vao ma sinh vien can cap nhat: ");
                             scanf("%d", &ma);
-                            CapNhatSinhVien(ArrSinhVien, slgSV, ma);
+                            CapNhatSinhVien(ArrSinhVien, slgSV, ma);printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                         break;
                         case 4:  
                             printf("Nhap vao ma sinh vien can xoa: ");
                             scanf("%d", &ma);
-                            XoaSinhVien(ArrSinhVien, &slgSV, ma);
+                            XoaSinhVien(ArrSinhVien, &slgSV, ma);printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                         break;                   
                         case 5:
                             SapXepTheoHoTen(ArrSinhVien, slgSV);
@@ -332,19 +354,25 @@ int main() {
                             printf("Nhap vao lop can hien thi danh sach sinh vien: ");
                             fflush(stdin);
                             gets(lop);
-                            HienThiDanhSachSVTheoLop(ArrSinhVien, slgSV, lop);
+                            HienThiDanhSachSVTheoLop(ArrSinhVien, slgSV, lop);printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                     	break;
                         case 7:                         
                             printf("Nhap vao ma sinh vien can tim kiem: \n");
                             scanf("%d", &ma);
-                            TimKiemSinhVienTheoMa(ArrSinhVien, slgSV, ma);
+                            TimKiemSinhVienTheoMa(ArrSinhVien, slgSV, ma);printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                         break;    
+                        case 8:
+                        	ghifile(ArrSinhVien, slgSV);
+                        	break;
 						case 0:
                             printf("Ban da thoat khoi chuc nang quan ly sinh vien\n");
                         break;                        
                 
                         default:
-                            printf("Ban da nhap sai. Vui long nhap lai.\n");
+                            printf("Ban da nhap sai. Vui long nhap lai.\n");printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                         break;
                     }
                 } while (chonQuanLySinhVien != 0);
@@ -372,25 +400,34 @@ int main() {
                         case 1:
                             HienThiDanhSachSV(ArrSinhVien, slgSV);
                             HienThiDiem(ArrSinhVien, slgSV);
+                            printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                             break;
 
                         case 2:
                             NhapDiem(ArrSinhVien, slgSV);
+							printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                             break;
                         case 3:
                         	printf("Nhap vao ma sinh vien can cap nhat: ");
                             scanf("%d", &ma);
                         	capNhatDiem(ArrSinhVien, slgSV, ma);
+                        	printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                         	
                         	break;
                         case 4:
                          TongTBC(ArrSinhVien, slgSV);
 						 TbcMaxMin(ArrSinhVien, slgSV);
-                        	
+                        	printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                         	break;
                         case 5:
                         	SapXepTheoDiemTB(ArrSinhVien, slgSV);
                         	  HienThiDiem( ArrSinhVien, slgSV);
+                        	  printf("-----------------------------------------------------"
+	"----------------------------------------------------------------\n");
                         	break;
 
                         default:
